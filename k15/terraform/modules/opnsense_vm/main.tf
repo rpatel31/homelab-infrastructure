@@ -1,10 +1,14 @@
 resource "proxmox_virtual_environment_vm" "this" {
-  name      = var.vm_name
-  vm_id     = var.vm_id
-  node_name = var.node_name
-  tags      = var.tags
-  machine   = "q35"
+  name          = var.vm_name
+  vm_id         = var.vm_id
+  node_name     = var.node_name
+  tags          = var.tags
+  machine       = "q35"
   scsi_hardware = "virtio-scsi-single"
+
+  lifecycle {
+    ignore_changes = [clone, disk]
+  }
 
   clone {
     vm_id        = var.template_id
