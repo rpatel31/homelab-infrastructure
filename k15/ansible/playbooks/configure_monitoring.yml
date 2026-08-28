@@ -1,0 +1,11 @@
+- name: Configure Monitoring server
+  hosts: monitoring
+  become: true
+
+  roles: 
+    - common
+    - docker
+    - monitoring
+    - prometheus
+    - node_exporter
+    - grafana

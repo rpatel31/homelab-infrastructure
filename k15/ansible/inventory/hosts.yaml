@@ -1,8 +1,12 @@
 all:
   children:
-  
+
     lxc:
       hosts:
         adguard:
           ansible_host: 192.168.1.160
 
+    vm:
+      hosts:
+        monitoring:
+          ansible_host: 10.10.10.10

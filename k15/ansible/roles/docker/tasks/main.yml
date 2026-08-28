@@ -1,0 +1,45 @@
+- name: Ensure APT keyring directory exsists 
+  ansible.builtin.file:
+    path: /etc/apt/keyrings
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Download docker repo signing keyring
+  ansible.builtin.get_url:
+    url: "{{docker_apt_key_url}}"
+    dest: "{{ docker_apt_keyring }}"
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: Add Docker APT repo
+  ansible.builtin.deb822_repository: #https://docs.ansible.com/projects/ansible/latest/collections/ansible/builtin/deb822_repository_module.html
+    name: docker
+    types:
+      - deb
+    uris:
+      - "{{ docker_apt_repo_url }}"
+    suites: 
+      - "{{ ansible_facts['distribution_release'] }}"
+    components:
+      - stable
+    architectures:
+      - "{{ docker_arch }}"
+    signed_by: "{{ docker_apt_keyring }}"
+    state: present 
+    install_python_debian: true
+  register: docker_repo
+
+- name: Install Docker common_packages
+  ansible.builtin.apt:
+    name: "{{ docker_packages }}"
+    state: present 
+    update_cache: "{{ docker_repo.changed }}"
+
+- name: Ensure docker service is running
+  ansible.builtin.systemd:
+    name: docker
+    enabled: true
+    state: started

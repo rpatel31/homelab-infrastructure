@@ -1,0 +1,7 @@
+#https://docs.ansible.com/projects/ansible/latest/collections/community/docker/docker_network_module.html
+
+- name: Docker monitoring network config
+  community.docker.docker_network:
+    name: "{{ monitoring_docker_network }}"
+    driver: bridge #creates network fro containers on this docker host
+    state: present #create if missing

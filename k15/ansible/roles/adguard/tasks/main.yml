@@ -24,7 +24,7 @@
 - name: Does Adguard need install or upgrade
   ansible.builtin.set_fact:
     adguard_needs_install: >-
-      {{ not adguard_installed.stat.exists or adguard_installed_version not in (adguard_installed_version.stdout | default(''))}}
+      {{ not adguard_installed.stat.exists or adguard_version not in (adguard_installed_version.stdout | default(''))}}
 
 - name: Download AdGuard Home 
   ansible.builtin.uri:

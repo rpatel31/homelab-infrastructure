@@ -1,0 +1,10 @@
+grafana_version: "13.2.0"
+grafana_image: "grafana/grafana:{{ grafana_version }}"
+grafana_container_name: "grafana"
+grafana_base_dir: "/opt/monitoring/grafana"
+grafana_provisioning_dir: "{{ grafana_base_dir  }}/provisioning"
+grafana_datasources_dir: "{{ grafana_provisioning_dir }}/datasources"
+grafana_data_volume: "grafana-data"
+grafana_port: 3000
+grafana_prometheus_url: "http://prometheus:9090"
+

@@ -1,0 +1,34 @@
+- name: Create prometheus directories
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+  loop:
+    - "{{ prometheus_base_dir }}"
+    - "{{ prometheus_config_dir }}"
+
+- name: Deploy prometheus config
+  ansible.builtin.template:
+    src: prometheus.yml.j2
+    dest: "{{ prometheus_config_dir }}/prometheus.yml"
+    owner: root
+    group: root 
+    mode: "0644"
+  notify: Restart prometheus
+
+
+- name: Deploy prometheus docker compose file
+  ansible.builtin.template:
+    src: compose.yml.j2
+    dest: "{{ prometheus_base_dir }}/compose.yml"
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: Start prometheus with Docker compose
+  community.docker.docker_compose_v2:
+    project_src: "{{ prometheus_base_dir }}"
+    state: present 
+

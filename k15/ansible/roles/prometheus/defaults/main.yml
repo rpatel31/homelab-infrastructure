@@ -1,0 +1,12 @@
+prometheus_version: "v3.13.2"
+prometheus_image: "prom/prometheus:{{ prometheus_version }}"
+
+
+prometheus_base_dir: "/opt/monitoring/prometheus"
+prometheus_config_dir: "{{ prometheus_base_dir }}/config"
+prometheus_data_volume: "prometheus-data"
+
+prometheus_port: 9090
+prometheus_scrape_interval: "15s"
+prometheus_retention_time: "30d"
+

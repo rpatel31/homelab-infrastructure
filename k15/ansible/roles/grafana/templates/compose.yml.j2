@@ -1,0 +1,24 @@
+services: 
+    grafana:
+        image: "{{ grafana_image }}"
+        container_name: "{{ grafana_container_name }}" 
+        restart: unless-stopped 
+
+        ports: 
+            - "{{ grafana_port }}:3000"
+
+        volumes:
+            - "grafana_data:/var/lib/grafana"
+            - "{{ grafana_datasources_dir }}:/etc/grafana/provisioning/datasources:ro"
+        
+        networks:
+            - monitoring 
+
+volumes:
+    grafana_data:
+        name: "{{ grafana_data_volume }}"
+
+networks: 
+    monitoring:
+        name: "{{ monitoring_docker_network }}"
+        external: true
