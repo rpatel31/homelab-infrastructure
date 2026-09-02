@@ -199,7 +199,7 @@ Provide opt-in DNS filtering without making the entire home network dependent on
 6.  Completed the initial web setup at http://192.168.1.160:3000
 7.  Point selected clients at `192.168.1.160` and verify queries.
 
-# 6. Monitoring VM
+# Monitoring VM
 
 Provide observability and monitoring into the K15 services using one monitoring VM.
 
