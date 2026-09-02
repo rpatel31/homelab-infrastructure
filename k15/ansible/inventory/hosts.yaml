@@ -10,3 +10,5 @@ all:
       hosts:
         monitoring:
           ansible_host: 10.10.10.10
+        immich:
+          ansible_host: 10.10.50.10

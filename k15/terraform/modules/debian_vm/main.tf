@@ -5,6 +5,7 @@ resource "proxmox_virtual_environment_vm" "this" {
   vm_id     = var.vm_id
   node_name = var.node_name
   tags      = var.tags
+  on_boot   = var.on_boot
 
   clone {
     vm_id        = var.template_id
@@ -27,9 +28,20 @@ resource "proxmox_virtual_environment_vm" "this" {
     size         = var.disk_size_gb
   }
 
+  dynamic "disk" {
+    for_each = var.data_disk == null ? [] : [var.data_disk]
+    content {
+      datastore_id = disk.value.datastore_id
+      interface    = "scsi1"
+      size         = disk.value.size_gb
+    }
+
+  }
+
   network_device {
-    bridge = var.network_bridge
-    model  = "virtio"
+    bridge  = var.network_bridge
+    model   = "virtio"
+    vlan_id = var.vlan_id
   }
 
   agent {

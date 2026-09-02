@@ -1,0 +1,36 @@
+- name: Format Immich data disk
+  community.general.filesystem:
+    dev: "{{ immich_data_device }}"
+    fstype: "{{ immich_data_filesystem }}"
+    opts: "-L {{ immich_data_label }}"
+    force: false
+
+- name: Create mount point
+  ansible.builtin.file:
+    path: "{{ immich_data_mount }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Mount Immich data disk
+  ansible.posix.mount:
+    path: "{{ immich_data_mount }}"
+    src: "LABEL={{ immich_data_label }}"
+    fstype: "{{ immich_data_filesystem }}"
+    opts: defaults,nofail
+    dump: "0"
+    passno: "2"
+    state: mounted
+
+- name: Create Immich directories
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+  loop:
+    - "{{ immich_app_dir }}"
+    - "{{ immich_upload_location }}"
+    - "{{ immich_db_data_location }}"

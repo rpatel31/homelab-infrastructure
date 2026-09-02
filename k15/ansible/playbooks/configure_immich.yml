@@ -1,0 +1,8 @@
+- name: Configure Immich server
+  hosts: immich
+  become: true
+  roles:
+    - common
+    - tailscale
+    - docker
+    - immich

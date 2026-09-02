@@ -78,9 +78,10 @@ variable "cloud_init_username" {
   default     = "ansible"
 }
 
-variable "cloud_init_ssh_pub_keys" {
-  description = "SSH pub key for intial cloud init ansible user"
-  type        = list(string)
+variable "cloud_init_ssh_pub_key_path" {
+  description = "ssh public key path for iac use by cloud-init"
+  type        = string
+  default     = "~/.ssh/homelab_iac.pub"
 
 }
 
@@ -111,4 +112,16 @@ variable "tags" {
   description = "Tags for the VM"
   type        = list(string)
   default     = ["terraform"]
+}
+
+
+variable "proxmox_endpoint" {
+  description = "Proxmox API endpoint"
+  type        = string
+}
+
+variable "proxmox_api_token" {
+  description = "Proxmox API token"
+  type        = string
+  sensitive   = true
 }

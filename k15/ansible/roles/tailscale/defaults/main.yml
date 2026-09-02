@@ -1,0 +1,7 @@
+tailscale_download_url: "https://tailscale.com/install.sh"
+tailscale_auth_key: "{{ vault_tailscale_auth_key }}"
+tailscale_hostname: "{{ inventory_hostname }}"
+tailscale_download_dir: /tmp
+tailscale_binary_path: /usr/bin/tailscale
+tailscale_installer_path: "{{ tailscale_download_dir }}/install-tailscale.sh"
+tailscale_accept_dns: false  # Keep the VM using AdGuard instead of Tailscale DNS

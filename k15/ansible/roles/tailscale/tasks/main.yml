@@ -1,0 +1,41 @@
+- name: Download Tailscale installer
+  ansible.builtin.get_url:
+    url: "{{ tailscale_download_url }}"
+    dest: "{{ tailscale_installer_path }}"
+    owner: root
+    group: root
+    mode: "0755"
+
+
+- name: Install Tailscale
+  ansible.builtin.command:
+    cmd: "{{ tailscale_installer_path }}"
+    creates: "{{ tailscale_binary_path }}"
+
+- name: Enable Tailscale service
+  ansible.builtin.systemd_service:
+    name: tailscaled
+    enabled: true
+    state: started
+
+- name: Ensure tailscale is running
+  ansible.builtin.command:
+    argv:
+      - "{{ tailscale_binary_path }}"
+      - status
+      - --json
+  register: tailscale_status
+  changed_when: false
+  failed_when: false
+
+- name: Join TailNet
+  ansible.builtin.command:
+    argv:
+      - "{{ tailscale_binary_path }}"
+      - up
+      - "--auth-key={{ tailscale_auth_key }}"
+      - "--hostname={{ tailscale_hostname }}"
+      - "--accept-dns={{ tailscale_accept_dns | ternary('true', 'false') }}"
+  when: >-
+      tailscale_status.rc != 0 or (tailscale_status.stdout | from_json).BackendState != "Running"
+  no_log: true

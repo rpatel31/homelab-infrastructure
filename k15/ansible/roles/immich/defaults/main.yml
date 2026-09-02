@@ -1,0 +1,18 @@
+immich_data_device: /dev/sdb
+immich_data_minimum_size_bytes: 190000000000
+immich_data_filesystem: ext4
+immich_data_label: immich-data
+immich_data_mount: /srv/immich
+immich_app_dir: /opt/immich
+immich_upload_location: "{{ immich_data_mount }}/immich_files"
+immich_db_data_location: "{{ immich_data_mount }}/postgres"
+
+immich_version: v3.1.0
+immich_timezone: Europe/London
+immich_compose_source: docker-compose.yml
+immich_compose_path: "{{ immich_app_dir }}/docker-compose.yml"
+immich_env_path: "{{ immich_app_dir }}/.env"
+
+immich_db_username: postgres
+immich_db_name: immich
+immich_db_password: "{{ vault_immich_db_password }}"

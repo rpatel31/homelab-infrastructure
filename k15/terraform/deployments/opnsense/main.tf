@@ -9,6 +9,6 @@ module "opnsense" {
 
   wan_bridge = "vmbr0"
   lan_bridge = "vmbr1"
-  lan_trunks = "20;30;40"
+  lan_trunks = "20;30;40;50"
 
 }

@@ -1,0 +1,35 @@
+- name: Configure Immich storage
+  ansible.builtin.import_tasks: storage.yml
+  tags:
+    - immich
+    - immich_storage
+
+- name: Deploy Immich
+  tags:
+    - immich
+    - immich_deploy
+  block:
+    - name: Copy Immich compose file
+      ansible.builtin.copy:
+        src: "{{ immich_compose_source }}"
+        dest: "{{ immich_compose_path }}"
+        owner: root
+        group: root
+        mode: "0644"
+
+    - name: Create Immich env file from j2 template
+      ansible.builtin.template:
+        src: env.j2
+        dest: "{{ immich_env_path }}"
+        owner: root
+        group: root
+        mode: "0600"
+      no_log: true  # Prevent the database password from appearing in logs
+
+    - name: Start Immich
+      community.docker.docker_compose_v2:
+        project_src: "{{ immich_app_dir }}"
+        state: present
+        pull: missing
+        wait: true
+        wait_timeout: 300
