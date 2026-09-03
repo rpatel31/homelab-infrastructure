@@ -16,3 +16,5 @@ immich_env_path: "{{ immich_app_dir }}/.env"
 immich_db_username: postgres
 immich_db_name: immich
 immich_db_password: "{{ vault_immich_db_password }}"
+immich_postgres_uid: 999
+immich_postgres_gid: 999

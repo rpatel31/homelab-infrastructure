@@ -23,7 +23,7 @@
     passno: "2"
     state: mounted
 
-- name: Create Immich directories
+- name: Create Immich application directories
   ansible.builtin.file:
     path: "{{ item }}"
     state: directory
@@ -33,4 +33,11 @@
   loop:
     - "{{ immich_app_dir }}"
     - "{{ immich_upload_location }}"
-    - "{{ immich_db_data_location }}"
+
+- name: Create Immich Postgres Data directory
+  ansible.builtin.file:
+    path: "{{ immich_db_data_location }}"
+    state: directory
+    owner: "{{ immich_postgres_uid }}"
+    group: "{{ immich_postgres_gid }}"
+    mode: "0700"

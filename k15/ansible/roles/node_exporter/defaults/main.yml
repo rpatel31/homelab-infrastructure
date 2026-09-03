@@ -2,6 +2,8 @@ node_exporter_version: "1.12.1"
 node_exporter_architecture: "amd64"
 node_exporter_user: node_exporter
 node_exporter_group: node_exporter
+node_exporter_uid: 950
+node_exporter_gid: 950
 
 node_exporter_port: 9100
 

@@ -5,4 +5,5 @@
     - common
     - tailscale
     - docker
+    - node_exporter
     - immich
