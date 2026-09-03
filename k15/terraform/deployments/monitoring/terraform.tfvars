@@ -10,9 +10,9 @@ disk_size_gb = 80
 
 network_bridge   = "vmbr1"
 network_firewall = false
-vlan_id          = 0
+vlan_id          = 10
 ipv4_address     = "10.10.10.10/24"
 ipv4_gateway     = "10.10.10.1"
 dns_servers      = ["192.168.1.1"]
 
-tags = ["VLAN10", "monitoring", "grafana", "prometheus", "loki", "terraform", "ansible"]
+tags = ["vlan10", "monitoring", "grafana", "prometheus", "loki", "terraform", "ansible"]

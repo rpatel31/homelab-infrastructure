@@ -23,8 +23,27 @@ variable "vm_id" {
   type        = number
 }
 
+variable "vm_name" {
+  description = "Name of the VM"
+  type        = string
+}
 variable "template_id" {
   description = "opnsense template vm id "
   type        = number
 
+}
+
+variable "lan_trunks" {
+  description = "VLAN IDs allowed on OPNsense LAN trunk interface"
+  type        = string
+}
+
+variable "wan_bridge" {
+  description = "Proxmox bridge used by OPNsense WAN Interface"
+  type        = string
+}
+
+variable "lan_bridge" {
+  description = "Proxmox bridge used by OPNsense LAN trunk interface"
+  type        = string
 }

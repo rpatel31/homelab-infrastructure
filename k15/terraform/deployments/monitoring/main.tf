@@ -12,6 +12,7 @@ module "monitoring" {
   disk_size_gb = var.disk_size_gb
 
   network_bridge = var.network_bridge
+  vlan_id        = var.vlan_id
   ipv4_address   = var.ipv4_address
   ipv4_gateway   = var.ipv4_gateway
   dns_servers    = var.dns_servers
